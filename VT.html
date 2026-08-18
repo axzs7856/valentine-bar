@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>給最特別的妳 ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            overflow-y: auto;
+            font-family: "Microsoft JhengHei", sans-serif;
+            background:
+                radial-gradient(circle at 50% 30%, #35133f 0%, #170b21 40%, #050507 100%);
+            color: white;
+        }
+
+        /* 星空 */
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: 0.2;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 主畫面 */
+        .container {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 25px;
+        }
+
+        .card {
+            width: min(600px, 90vw);
+            padding: 45px 30px;
+            border-radius: 25px;
+
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 0 50px rgba(255, 50, 150, 0.12);
+        }
+
+        .heart {
+            font-size: 65px;
+            animation: heartbeat 1.3s infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        h1 {
+            font-size: 38px;
+            margin: 10px 0 25px;
+        }
+
+        #text {
+            min-height: 90px;
+            font-size: 19px;
+            line-height: 2;
+            color: #f4dce9;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 13px 30px;
+
+            border: none;
+            border-radius: 999px;
+
+            color: white;
+            background: linear-gradient(135deg, #ff4d8d, #b52cff);
+
+            font-size: 16px;
+            cursor: pointer;
+
+            box-shadow: 0 0 25px rgba(255, 50, 150, 0.3);
+
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 35px rgba(255, 50, 150, 0.5);
+        }
+
+        /* 飄浮愛心 */
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            font-size: 20px;
+            pointer-events: none;
+            animation: floatUp linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.8;
+            }
+
+            to {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 最後畫面 */
+        .final {
+            display: none;
+        }
+
+        .final h2 {
+            font-size: 34px;
+            color: #ff8fbd;
+        }
+
+        .final-message {
+            font-size: 20px;
+            line-height: 2;
+            margin-top: 20px;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-size: 17px;
+            color: #aaa;
+        }
+
+        @media (max-width: 600px) {
+
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .container {
+        min-height: 100svh;
+        align-items: flex-start;
+        padding: 35px 18px 60px;
+    }
+
+    .card {
+        width: 100%;
+        padding: 35px 22px 45px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    #text {
+        font-size: 17px;
+        line-height: 1.9;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- 星空 -->
+    <div class="stars" id="stars"></div>
+
+    <!-- 主內容 -->
+    <div class="container">
+
+        <div class="card" id="mainCard">
+
+            <div class="heart">❤️</div>
+
+            <h1>給最特別的妳</h1>
+
+            <div id="text"></div>
+
+            <button onclick="nextPage()" id="nextButton">
+                NEXT
+            </button>
+
+        </div>
+
+        <!-- 最後 -->
+        <div class="card final" id="finalCard">
+
+            <div class="heart">💗</div>
+
+            <h2>情人節快樂</h2>
+
+            <div class="final-message">
+                情人節到了，<br>
+                不管今年是有人陪，還是一個人度過，<br>
+                都值得為今晚留下一點特別的回憶。<br><br>
+
+                但比起這些，我更期待的是——<br>
+                今晚能不能遇見一個特別的你。<br><br>
+
+                也許我們只是在人群中擦肩而過，<br>
+                也許只是一起喝杯酒、聊聊天，<br>
+                但有些心動，往往就是從一杯酒開始。<br><br>
+
+                如果今晚剛好有空，<br>
+                就來找我吧。<br><br>
+
+                我想親口跟你說：<br>
+
+               「今晚的第一杯酒，<br>
+                我陪你喝。」<br><br>
+
+                <strong>我等妳。❤️</strong>
+            </div>
+
+            <div class="signature">
+                By 玉米
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* =========================
+           星空
+        ========================= */
+
+        const stars = document.getElementById("stars");
+
+        for (let i = 0; i < 120; i++) {
+
+            const star = document.createElement("div");
+
+            star.className = "star";
+
+            star.style.left = Math.random() * 100 + "%";
+            star.style.top = Math.random() * 100 + "%";
+
+            star.style.animationDelay =
+                Math.random() * 2 + "s";
+
+            stars.appendChild(star);
+        }
+
+
+        /* =========================
+           文字內容
+        ========================= */
+
+        const pages = [
+
+            "今天是情人節。<br><br>" +
+            "不知道今天的你，<br>" +
+            "是不是也正在尋找一個地方，讓自己好好放鬆一下？",
+
+            "我知道，<br>" +
+            "一個人喝酒好像少了點什麼。<br><br>" +
+            "所以今晚，<br>" +
+            "不如讓我陪你喝一杯。",
+
+            "其實我想告訴你的是……<br><br>" +
+            "不管今天有沒有人陪，<br>" +
+            "都不代表你不能擁有一個浪漫的情人節。",
+
+            "所以今天沒有昂貴的禮物，<br>" +
+            "也沒有刻意準備什麼驚喜。<br><br>" +
+            "只有一杯酒，<br>" +
+            "和一個正在等你來的人。",
+ 
+            "最後，<br><br>" +
+            "如果今晚剛好有空，<br>" +
+            "就來找我吧。<br>" +
+            "這個情人節，<br>" +
+            "讓我陪你一起度過。"
+        ];
+
+
+        let page = 0;
+
+
+        /* =========================
+           打字效果
+        ========================= */
+
+        function typeText(text) {
+
+            const element = document.getElementById("text");
+
+            element.innerHTML = "";
+
+            let index = 0;
+
+            function type() {
+
+                if (index < text.length) {
+
+                    if (text[index] === "<") {
+
+                        const end =
+                            text.indexOf(">", index);
+
+                        element.innerHTML +=
+                            text.substring(index, end + 1);
+
+                        index = end + 1;
+
+                    } else {
+
+                        element.innerHTML +=
+                            text[index];
+
+                        index++;
+                    }
+
+                    setTimeout(type, 35);
+
+                }
+
+            }
+
+            type();
+        }
+
+
+        typeText(pages[0]);
+
+
+        /* =========================
+           下一頁
+        ========================= */
+
+        function nextPage() {
+
+            page++;
+
+            if (page < pages.length) {
+
+                typeText(pages[page]);
+
+                if (page === pages.length - 1) {
+
+                    document.getElementById("nextButton")
+                        .innerText = "來找我 ❤️";
+
+                }
+
+            } else {
+
+                document.getElementById("mainCard")
+                    .style.display = "none";
+
+                document.getElementById("finalCard")
+                    .style.display = "block";
+
+                createHearts(40);
+            }
+        }
+
+
+        /* =========================
+           飄浮愛心
+        ========================= */
+
+        function createHeart() {
+
+            const heart =
+                document.createElement("div");
+
+            heart.className = "floating-heart";
+
+            heart.innerHTML =
+                ["❤️", "💕", "💗", "💖", "💘"]
+                [Math.floor(Math.random() * 5)];
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.fontSize =
+                (15 + Math.random() * 25) + "px";
+
+            heart.style.animationDuration =
+                (4 + Math.random() * 5) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 9000);
+        }
+
+
+        setInterval(createHeart, 700);
+
+
+        function createHearts(amount) {
+
+            for (let i = 0; i < amount; i++) {
+
+                setTimeout(createHeart, i * 80);
+
+            }
+        }
+
+    </script>
+
+</body>
+</html>
